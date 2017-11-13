@@ -49,7 +49,8 @@ if ($type == "registration") {
         $passwordInDB = $row;
       }
       if ($passwordInDB['user_password'] == $user_sha256Password) {
-        echo '<a href="./phpclientchangepass.php">Сменить пароль!</a>';
+        echo '<a href="./phpclientchangepass.php">Сменить пароль!</a></br>
+        <a href="./phpclientdeleteuser.php">Выпилиццо!</a>';
       }
       mysqli_close($mysqli);
     }
@@ -68,6 +69,23 @@ if ($type == "registration") {
     $passwordChangeQuery = "UPDATE users SET user_password = '$user_new_password' WHERE user_login = '$user_login'";
     $resultOfChangePass = $mysqli->query($passwordChangeQuery);
     echo "Пароль успешно изменен!";
+    mysqli_close($mysqli);
+  }
+} else if ($type == "deleteUser") {
+  if ($user_sha256Password == null) {
+    $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$user_login'";
+    $resultOfLoginCheck = $mysqli->query($checkLoginQuery);
+    $toUser = array();
+    while ($row = $resultOfLoginCheck->fetch_assoc()) {
+      $toUser[] = $row;
+    }
+    echo json_encode($toUser);
+    mysqli_close($mysqli);
+  } else {
+    $userDeleteQuery = "DELETE FROM users WHERE user_login = '$user_login'
+                                                              AND user_password = '$user_sha256Password'";
+    $resultOfDeleteUser = $mysqli->query($userDeleteQuery);
+    echo "Вы успешно выпилились!";
     mysqli_close($mysqli);
   }
 }
