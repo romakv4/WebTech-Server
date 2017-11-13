@@ -75,18 +75,34 @@ if ($type == "registration") {
   if ($user_sha256Password == null) {
     $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$user_login'";
     $resultOfLoginCheck = $mysqli->query($checkLoginQuery);
-    $toUser = array();
-    while ($row = $resultOfLoginCheck->fetch_assoc()) {
-      $toUser[] = $row;
+    if (mysqli_num_rows($resultOfLoginCheck) == 0) {
+      echo "Такого пользователя нет!";
+      mysqli_close($mysqli);
+    } else {
+      $toUser = array();
+      while ($row = $resultOfLoginCheck->fetch_assoc()) {
+        $toUser[] = $row;
+      }
+      echo json_encode($toUser);
+      mysqli_close($mysqli);
     }
-    echo json_encode($toUser);
-    mysqli_close($mysqli);
   } else {
-    $userDeleteQuery = "DELETE FROM users WHERE user_login = '$user_login'
-                                                              AND user_password = '$user_sha256Password'";
-    $resultOfDeleteUser = $mysqli->query($userDeleteQuery);
-    echo "Вы успешно выпилились!";
+    $checkPasswordQuery = "SELECT user_password FROM users WHERE user_password = '$user_sha256Password'";
+    $resultOfPasswordCheck = $mysqli->query($checkPasswordQuery);
+    $passwordInDB = array();
+    while ($row = $resultOfPasswordCheck->fetch_assoc()) {
+      $passwordInDB = $row;
+    }
+    if ($passwordInDB['user_password'] == $user_sha256Password) {
+     $userDeleteQuery = "DELETE FROM users WHERE user_login = '$user_login'
+     AND user_password = '$user_sha256Password'";
+     $resultOfDeleteUser = $mysqli->query($userDeleteQuery);
+     echo "Вы успешно выпилились!";
+     mysqli_close($mysqli);
+   } else {
+    echo "Вы неверно ввели пароль!";
     mysqli_close($mysqli);
   }
+}
 }
 ?>
