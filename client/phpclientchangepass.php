@@ -15,6 +15,6 @@
   <div id="result"></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="./js/changePassword.js"></script>
-  <script type="text/javascript" src="js/sha256.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/vendorJS/sha256.js" charset="utf-8"></script>
 </body>
 </html>
