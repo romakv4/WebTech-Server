@@ -11,7 +11,7 @@ $("#changePass").click(function () {
       type: type
     };
     $.ajax({
-      url: "../server/phpserver.php",
+      url: "../server/serverRouting.php",
       type: "POST",
       data: message,
       success: function(data) {
@@ -25,7 +25,7 @@ $("#changePass").click(function () {
             type: type
           };
           $.ajax({
-            url: "../server/phpserver.php",
+            url: "../server/serverRouting.php",
             type: "POST",
             data: message,
             success: function(data) {

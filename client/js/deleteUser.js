@@ -7,7 +7,7 @@ $("#deleteUser").click(function () {
       type: type
     };
     $.ajax({
-      url: "../server/phpserver.php",
+      url: "../server/serverRouting.php",
       type: "POST",
       data: message,
       success: function(data) {
@@ -24,7 +24,7 @@ $("#deleteUser").click(function () {
             type: type
           };
           $.ajax({
-            url: "../server/phpserver.php",
+            url: "../server/serverRouting.php",
             type: "POST",
             data: message,
             success: function(data) {
