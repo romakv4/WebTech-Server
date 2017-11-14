@@ -9,7 +9,8 @@ if ($mysqli->errno) {
   printf("Не удалось подключиться: %s\n", $mysqli->connect_error);
   exit();
 }
-if ($type == "registration") {
+switch ($type) {
+  case 'registration':
   $checkFreedomLoginQuery = "SELECT * FROM users WHERE user_login = '$user_login'";
   $resultOfRegistrationCheck = $mysqli->query($checkFreedomLoginQuery);
   if (mysqli_num_rows($resultOfRegistrationCheck) == 0) {
@@ -22,7 +23,8 @@ if ($type == "registration") {
     echo "Имя пользователя занято!";
     mysqli_close($mysqli);
   }
-} else if ($type == "login") {
+  break;
+  case 'login':
   if ($user_sha256Password == null) {
     $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$user_login'";
     $resultOfLoginCheck = $mysqli->query($checkLoginQuery);
@@ -55,7 +57,8 @@ if ($type == "registration") {
       mysqli_close($mysqli);
     }
   }
-} else if ($type == "changePass") {
+  break;
+  case 'changePass':
   if ($user_password == null && $user_new_password == null) {
     $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$user_login'";
     $resultOfLoginCheck = $mysqli->query($checkLoginQuery);
@@ -71,7 +74,8 @@ if ($type == "registration") {
     echo "Пароль успешно изменен!";
     mysqli_close($mysqli);
   }
-} else if ($type == "deleteUser") {
+  break;
+  case 'deleteUser':
   if ($user_sha256Password == null) {
     $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$user_login'";
     $resultOfLoginCheck = $mysqli->query($checkLoginQuery);
@@ -104,5 +108,6 @@ if ($type == "registration") {
     mysqli_close($mysqli);
   }
 }
+break;
 }
 ?>
