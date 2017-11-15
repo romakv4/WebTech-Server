@@ -11,8 +11,8 @@ $("#deleteUser").click(function () {
       type: "POST",
       data: message,
       success: function(data) {
-        if (data == "Такого пользователя нет!") {
-          $('#result').html(data);
+        if (JSON.parse(data) == "Такого пользователя нет!") {
+          $('#result').html(JSON.parse(data));
         } else {
           var dataParsed = JSON.parse(data);
           var email = dataParsed[0]["user_email"];
@@ -28,7 +28,7 @@ $("#deleteUser").click(function () {
             type: "POST",
             data: message,
             success: function(data) {
-              $('#result').html(data);
+              $('#result').html(JSON.parse(data));
             }
           })
         }

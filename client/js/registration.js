@@ -20,7 +20,7 @@ $("#register").click(function () {
       type: "POST",
       data: message,
       success: function(data) {
-        $('#result').html(data);
+        $('#result').html(JSON.parse(data));
       }
     })
   }

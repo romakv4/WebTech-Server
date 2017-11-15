@@ -5,7 +5,7 @@ Class LogInClass {
       $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$login'";
       $resultOfLoginCheck = $connect->query($checkLoginQuery);
       if (mysqli_num_rows($resultOfLoginCheck) == 0) {
-        echo "Вы явно ошиблись логином!";
+        echo json_encode("Вы явно ошиблись логином!");
         mysqli_close($connect);
       } else {
         $toUser = array();
@@ -19,7 +19,7 @@ Class LogInClass {
       $checkPasswordQuery = "SELECT user_password FROM users WHERE user_password = '$sha256Password'";
       $resultOfPasswordCheck = $connect->query($checkPasswordQuery);
       if (mysqli_num_rows($resultOfPasswordCheck) == 0) {
-        echo "Вы явно ошиблись паролем!";
+        echo json_encode("Вы явно ошиблись паролем!");
         mysqli_close($connect);
       } else {
         $passwordInDB = array();
@@ -27,11 +27,9 @@ Class LogInClass {
           $passwordInDB = $row;
         }
         if ($passwordInDB['user_password'] == $sha256Password) {
-          echo '<a href="./phpclientchangepass.php">Сменить пароль!</a></br>
-          <a href="./phpclientdeleteuser.php">Выпилиццо!</a>';
+          echo json_encode("OK");
           mysqli_close($connect);
         }
-        mysqli_close($connect);
       }
     }
   }

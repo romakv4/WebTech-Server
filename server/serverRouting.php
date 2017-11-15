@@ -1,9 +1,9 @@
 <?php
 $mysqli = new mysqli("localhost", "root", "", "usersDB");
-    if ($mysqli->errno) {
-      printf("Не удалось подключиться: %s\n", $mysqli->connect_error);
-      exit();
-    }
+if ($mysqli->errno) {
+  printf("Не удалось подключиться: %s\n", $mysqli->connect_error);
+  exit();
+}
 switch ($_POST['type']) {
   case 'registration':
     require_once("./registration.php");
@@ -24,6 +24,6 @@ switch ($_POST['type']) {
     require_once("./deleteUser.php");
     $delete = new DeleteUserClass();
     $delete->deleteUser($_POST['user_login'], $_POST['user_password'], $mysqli);
-break;
+    break;
 }
 ?>
