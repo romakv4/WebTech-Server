@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 $mysqli = new mysqli("localhost", "root", "", "usersDB");
 if ($mysqli->errno) {
   printf("Не удалось подключиться: %s\n", $mysqli->connect_error);

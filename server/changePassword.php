@@ -5,7 +5,7 @@ Class changePassClass {
       $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$login'";
       $resultOfLoginCheck = $connect->query($checkLoginQuery);
       if (mysqli_num_rows($resultOfLoginCheck) == 0) {
-        echo json_encode("Вы ошиблись логином");
+        echo json_encode("wronglogin");
       } else {
         $toUser = array();
         while ($row = $resultOfLoginCheck->fetch_assoc()) {
@@ -18,12 +18,12 @@ Class changePassClass {
       $passwordCheckQuery = "SELECT user_password FROM users WHERE user_password = '$sha256Password'";
       $resultOfPasswordCheck = $connect->query($passwordCheckQuery);
       if (mysqli_num_rows($resultOfPasswordCheck) == 0) {
-        echo json_encode("Старый пароль не совпадает!");
+        echo json_encode("wrongoldpwd");
         mysqli_close($connect);
       } else {
         $passwordChangeQuery = "UPDATE users SET user_password = '$new_password' WHERE user_login = '$login'";
         $resultOfChangePass = $connect->query($passwordChangeQuery);
-        echo json_encode("Пароль успешно изменен!");
+        echo json_encode("ok");
         mysqli_close($connect);
       }
     }

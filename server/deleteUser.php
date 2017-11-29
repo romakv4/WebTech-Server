@@ -5,7 +5,7 @@ Class DeleteUserClass {
       $checkLoginQuery = "SELECT user_email FROM users WHERE user_login = '$login'";
       $resultOfLoginCheck = $connect->query($checkLoginQuery);
       if (mysqli_num_rows($resultOfLoginCheck) == 0) {
-        echo json_encode("Такого пользователя нет!");
+        echo json_encode("wronglogin");
         mysqli_close($connect);
       } else {
         $toUser = array();
@@ -26,10 +26,10 @@ Class DeleteUserClass {
        $userDeleteQuery = "DELETE FROM users WHERE user_login = '$login'
        AND user_password = '$sha256Password'";
        $resultOfDeleteUser = $connect->query($userDeleteQuery);
-       echo json_encode("Вы успешно выпилились!");
+       echo json_encode("ok");
        mysqli_close($connect);
      } else {
-      echo json_encode("Вы неверно ввели пароль!");
+      echo json_encode("wrongpwd");
       mysqli_close($connect);
     }
   }
